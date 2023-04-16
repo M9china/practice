@@ -1,24 +1,33 @@
 const url = "http://localhost:4377/";
+const getData = document.getElementById("lessons")
+
+const manipulate = (tets) => {
+  return getData = test
+}
 // const reQ = new Promise(rej);
 const fetchData = async (url) => {
   const req = new XMLHttpRequest();
-  try {
-    req.open("GET", url); // open channel
-    req.send(); // send request
-    const resp = await req.response;
-    console.log(req);
-    return resp;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
+     try {
+     req.send();
+     req.responseType = 'json'; // assign response type to json
+     req.onreadystatechange = () => { 
+     if(req.readyState === 4){ // readyState 4 is done/request finished/response is ready
+       console.log(req.response)
+       let data = req.response
+       Object.values(data.lessons).map((e) => {
+         getData.appendChild(
+         Object.assign(document.createElement("p"),{
+           innerText: e.id + " " + e.topic + " " +  e.description 
+         }))
+       })
+     
+       return data
+     }
+   }
+   } catch (error) {
+     return error
+   }
 };
-
-fetchData(url)
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((error) => console.log(error));
 
   function createElement(type, attributes) {
     const element = document.createElementNS("http://www.w3.org/2000/svg", type);
@@ -36,6 +45,7 @@ fetchData(url)
     r: 40,
     style: 'fill: red; stroke: purple; stroke-width: 4px;'
   });
+  
   const textholder = document.getElementById("txt")
   const text1 = createElement('text', {
     x: 50,
@@ -44,10 +54,10 @@ fetchData(url)
     'dominant-baseline': 'middle',
     fill: 'white',
     textContent: 'I am svg'
-  });
-  fetchData()
-  
+  }); 
+
   svg1.appendChild(circle1);
   textholder.appendChild(text1);
   svgholder.appendChild(svg1);
   
+  fetchData()
